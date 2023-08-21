@@ -183,7 +183,8 @@ ZYAN_INLINE ZyanStatus ZydisStringAppendCase(ZyanString* destination, const Zyan
         const ZyanUSize index = destination->vector.size - 1;
         const ZyanUSize count = source->string.vector.size - 1;
         char* s = (char*)destination->vector.data + index;
-        for (ZyanUSize i = index; i < index + count; ++i)
+        ZyanUSize i = index;
+        for (; i < index + count; ++i)
         {
             const char c = *s;
             if ((c >= 'A') && (c <= 'Z'))
@@ -199,7 +200,8 @@ ZYAN_INLINE ZyanStatus ZydisStringAppendCase(ZyanString* destination, const Zyan
         const ZyanUSize index = destination->vector.size - 1;
         const ZyanUSize count = source->string.vector.size - 1;
         char* s = (char*)destination->vector.data + index;
-        for (ZyanUSize i = index; i < index + count; ++i)
+        ZyanUSize i = index;
+        for (; i < index + count; ++i)
         {
             const char c = *s;
             if ((c >= 'a') && (c <= 'z'))
@@ -283,7 +285,8 @@ ZYAN_INLINE ZyanStatus ZydisStringAppendShortCase(ZyanString* destination,
         const ZyanUSize index = destination->vector.size - 1;
         const ZyanUSize count = source->size;
         char* s = (char*)destination->vector.data + index;
-        for (ZyanUSize i = index; i < index + count; ++i)
+        ZyanUSize i = index;
+        for (; i < index + count; ++i)
         {
             const char c = *s;
             if ((c >= 'A') && (c <= 'Z'))
@@ -299,7 +302,8 @@ ZYAN_INLINE ZyanStatus ZydisStringAppendShortCase(ZyanString* destination,
         const ZyanUSize index = destination->vector.size - 1;
         const ZyanUSize count = source->size;
         char* s = (char*)destination->vector.data + index;
-        for (ZyanUSize i = index; i < index + count; ++i)
+        ZyanUSize i = index;
+        for (; i < index + count; ++i)
         {
             const char c = *s;
             if ((c >= 'a') && (c <= 'z'))

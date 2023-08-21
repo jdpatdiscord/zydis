@@ -429,7 +429,8 @@ ZyanStatus ZydisFormatterBasePrintPrefixes(const ZydisFormatter* formatter,
 
     if (formatter->detailed_prefixes)
     {
-        for (ZyanU8 i = 0; i < context->instruction->raw.prefix_count; ++i)
+        ZyanU8 i = 0;
+        for (; i < context->instruction->raw.prefix_count; ++i)
         {
             const ZyanU8 value = context->instruction->raw.prefixes[i].value;
             switch (context->instruction->raw.prefixes[i].type)

@@ -68,7 +68,7 @@ option(ZYAN_SYSTEM_ZYCORE
     "Use system Zycore library"
     OFF)
 set(ZYAN_ZYCORE_PATH
-    "${CMAKE_CURRENT_LIST_DIR}/dependencies/zycore"
+    "${CMAKE_CURRENT_LIST_DIR}/dependencies/zycore-c"
     CACHE
     PATH
     "The path to look for Zycore")
@@ -82,7 +82,7 @@ if (ZYAN_SYSTEM_ZYCORE)
 else ()
     # Try to initialize the Zycore submodule using Git
     if (NOT EXISTS "${ZYAN_ZYCORE_PATH}/CMakeLists.txt" AND 
-        "${ZYAN_ZYCORE_PATH}" STREQUAL "${CMAKE_CURRENT_LIST_DIR}/dependencies/zycore")
+        "${ZYAN_ZYCORE_PATH}" STREQUAL "${CMAKE_CURRENT_LIST_DIR}/dependencies/zycore-c")
         find_package(Git QUIET)
         if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
             execute_process(

@@ -190,7 +190,8 @@ static ZyanStatus ZydisStringAppendHexU32(ZyanString* string, ZyanU32 value, Zya
 
     ZyanU8 n = 0;
     char* buffer = ZYAN_NULL;
-    for (ZyanI8 i = ZYDIS_MAXCHARS_HEX_32 - 1; i >= 0; --i)
+    ZyanI8 i = ZYDIS_MAXCHARS_HEX_32 - 1;
+    for (; i >= 0; --i)
     {
         const ZyanU8 v = (value >> i * 4) & 0x0F;
         if (!n)
@@ -263,8 +264,8 @@ static ZyanStatus ZydisStringAppendHexU64(ZyanString* string, ZyanU64 value, Zya
 
     ZyanU8 n = 0;
     char* buffer = ZYAN_NULL;
-    for (ZyanI8 i = ((value & 0xFFFFFFFF00000000) ?
-        ZYDIS_MAXCHARS_HEX_64 : ZYDIS_MAXCHARS_HEX_32) - 1; i >= 0; --i)
+    ZyanI8 i = ((value & 0xFFFFFFFF00000000) ? ZYDIS_MAXCHARS_HEX_64 : ZYDIS_MAXCHARS_HEX_32) - 1;
+    for (; i >= 0; --i)
     {
         const ZyanU8 v = (value >> i * 4) & 0x0F;
         if (!n)

@@ -56,7 +56,8 @@ ZyanStatus ZydisFormatterATTFormatInstruction(const ZydisFormatter* formatter,
     ZYDIS_BUFFER_REMEMBER(buffer, state_mnemonic);
 
     const ZyanI8 c = (ZyanI8)context->instruction->operand_count_visible - 1;
-    for (ZyanI8 i = c; i >= 0; --i)
+    ZyanI8 i = c;
+    for (; i >= 0; --i)
     {
         const ZydisDecodedOperand* const operand = &context->operands[i];
 
@@ -298,7 +299,8 @@ ZyanStatus ZydisFormatterATTPrintMnemonic(const ZydisFormatter* formatter,
 
     // Append operand-size suffix
     ZyanU32 size = 0;
-    for (ZyanU8 i = 0; i < context->instruction->operand_count_visible; ++i)
+    ZyanU8 i = 0;
+    for (; i < context->instruction->operand_count_visible; ++i)
     {
         const ZydisDecodedOperand* const operand = &context->operands[i];
         if ((operand->type == ZYDIS_OPERAND_TYPE_MEMORY) &&

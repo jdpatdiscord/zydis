@@ -101,7 +101,8 @@ void ZydisPrintInstruction(const ZydisDecodedInstruction* instruction,
     }
     printf("-%u ", instruction->stack_width);
 
-    for (ZyanU8 i = 0; i < instruction->length; ++i)
+    ZyanU8 i = 0;
+    for (; i < instruction->length; ++i)
     {
         printf("%02X", instruction_bytes[i]);
     }
@@ -146,7 +147,8 @@ void ZydisValidateEnumRanges(const ZydisDecodedInstruction* insn,
     ZYDIS_CHECK_ENUM(insn->opcode_map, ZYDIS_OPCODE_MAP_MAX_VALUE);
 
     // Operands.
-    for (ZyanU32 i = 0; i < operand_count; ++i)
+    ZyanU32 i = 0;
+    for (; i < operand_count; ++i)
     {
         const ZydisDecodedOperand* op = &operands[i];
         ZYDIS_CHECK_ENUM(op->type, ZYDIS_OPERAND_TYPE_MAX_VALUE);
@@ -194,11 +196,11 @@ void ZydisValidateEnumRanges(const ZydisDecodedInstruction* insn,
     ZYDIS_CHECK_ENUM(insn->meta.exception_class, ZYDIS_EXCEPTION_CLASS_MAX_VALUE);
 
     // Raw.
-    for (ZyanU32 i = 0; i < ZYAN_ARRAY_LENGTH(insn->raw.prefixes); ++i)
+    for (i = 0; i < ZYAN_ARRAY_LENGTH(insn->raw.prefixes); ++i)
     {
         ZYDIS_CHECK_ENUM(insn->raw.prefixes[i].type, ZYDIS_PREFIX_TYPE_MAX_VALUE);
     }
-    for (ZyanU32 i = 0; i < ZYAN_ARRAY_LENGTH(insn->raw.imm); ++i)
+    for (i = 0; i < ZYAN_ARRAY_LENGTH(insn->raw.imm); ++i)
     {
         ZYDIS_CHECK_ENUM(insn->raw.imm[i].is_signed, ZYAN_TRUE);
         ZYDIS_CHECK_ENUM(insn->raw.imm[i].is_relative, ZYAN_TRUE);
@@ -254,7 +256,8 @@ void ZydisValidateInstructionIdentity(const ZydisDecodedInstruction* insn1,
         abort();
     }
 
-    for (ZyanU8 i = 0; i < insn1->operand_count; ++i)
+    ZyanU8 i = 0;
+    for (; i < insn1->operand_count; ++i)
     {
         const ZydisDecodedOperand *op1 = &operands1[i];
         const ZydisDecodedOperand *op2 = &operands2[i];

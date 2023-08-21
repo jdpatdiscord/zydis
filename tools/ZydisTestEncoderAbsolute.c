@@ -58,7 +58,8 @@ static ZyanBool AdvanceIterators(Iterator *iterators, ZyanUSize count)
         return ZYAN_FALSE;
     }
 
-    for (ZyanUSize i = 0; i < count; ++i)
+    ZyanUSize i = 0;
+    for (; i < count; ++i)
     {
         Iterator *iterator = &iterators[count - 1 - i];
         iterator->value++;
@@ -74,7 +75,8 @@ static ZyanBool AdvanceIterators(Iterator *iterators, ZyanUSize count)
 
 static void PrintBytes(ZyanU8 *bytes, ZyanUSize count)
 {
-    for (ZyanUSize i = 0; i < count; ++i)
+    ZyanUSize i = 0;
+    for (; i < count; ++i)
     {
         ZYAN_PRINTF("%02X ", bytes[i]);
     }

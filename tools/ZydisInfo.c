@@ -199,7 +199,8 @@ static void PrintSegments(const ZydisDecodedInstruction* instruction, const Zyan
 
     ZyanU8 pos = 0;
     ZyanU8 imm = 0;
-    for (ZyanU8 i = 0; i < segments.count; ++i)
+    ZyanU8 i = 0;
+    for (; i < segments.count; ++i)
     {
         print_info[i].pos = pos;
 
@@ -262,7 +263,8 @@ static void PrintSegments(const ZydisDecodedInstruction* instruction, const Zyan
         }
 
         ZYAN_PRINTF("%s", print_info[i].color);
-        for (int j = 0; j < segments.segments[i].size; ++j)
+        int j = 0;
+        for (; j < segments.segments[i].size; ++j)
         {
             if (segments.segments[i].type == ZYDIS_INSTR_SEGMENT_PREFIXES)
             {
@@ -300,7 +302,7 @@ static void PrintSegments(const ZydisDecodedInstruction* instruction, const Zyan
         return;
     }
 
-    for (ZyanU8 i = 0; i < segments.count; ++i)
+    for (i = 0; i < segments.count; ++i)
     {
         ZyanU8 j = 0;
         ZyanU8 k = 0;
@@ -389,7 +391,8 @@ static void PrintOperands(const ZydisDecodedInstruction* instruction,
         "--  ---------------------------%s\n", CVT100_OUT(COLOR_HEADER), CVT100_OUT(COLOR_DEFAULT));
 
     ZyanU8 imm_id = 0;
-    for (ZyanU8 i = 0; i < instruction->operand_count; ++i)
+    ZyanU8 i = 0;
+    for (; i < instruction->operand_count; ++i)
     {
         static const char* strings_operand_type[] =
         {
@@ -644,7 +647,8 @@ static void PrintFlags(const ZydisDecodedInstruction* instruction)
     ZYAN_MEMSET(flags, 0, sizeof(flags));
 
     // CPU
-    for (ZyanUSize i = 0; i < ZYAN_ARRAY_LENGTH(strings_cpu_flags); ++i)
+    ZyanUSize i = 0;
+    for (i = 0; i < ZYAN_ARRAY_LENGTH(strings_cpu_flags); ++i)
     {
         flags[i].name = strings_cpu_flags[i];
         flags[i].action = GetAccessedFlagActionString(instruction->cpu_flags, (ZyanU8)i);
@@ -652,7 +656,8 @@ static void PrintFlags(const ZydisDecodedInstruction* instruction)
 
     // FPU
     const ZyanUSize offset = ZYAN_ARRAY_LENGTH(strings_cpu_flags);
-    for (ZyanUSize i = 0; i < ZYAN_ARRAY_LENGTH(strings_fpu_flags); ++i)
+    
+    for (i = 0; i < ZYAN_ARRAY_LENGTH(strings_fpu_flags); ++i)
     {
         flags[offset + i].name = strings_fpu_flags[i];
         flags[offset + i].action = GetAccessedFlagActionString(instruction->fpu_flags, (ZyanU8)i);
@@ -663,7 +668,7 @@ static void PrintFlags(const ZydisDecodedInstruction* instruction)
     PrintValueLabel("ACTIONS");
 
     ZyanU8 c = 0;
-    for (ZyanUSize i = 0; i < ZYAN_ARRAY_LENGTH(flags); ++i)
+    for (i = 0; i < ZYAN_ARRAY_LENGTH(flags); ++i)
     {
         if (flags[i].action == ZYAN_NULL)
         {
@@ -1027,7 +1032,8 @@ static void PrintInstruction(const ZydisDecoder* decoder,
         PrintValueLabel("ATTRIBUTES");
         ZYAN_FPUTS(CVT100_OUT(COLOR_VALUE_B), ZYAN_STDOUT);
         ZyanUSize len_total = 13;
-        for (ZyanUSize i = 0; i < ZYAN_ARRAY_LENGTH(attribute_map); ++i)
+        ZyanUSize i = 0;
+        for (; i < ZYAN_ARRAY_LENGTH(attribute_map); ++i)
         {
             if (instruction->attributes & attribute_map[i].attribute_mask)
             {
@@ -1168,14 +1174,16 @@ int main(int argc, char** argv)
 
     ZyanU8 data[ZYDIS_MAX_INSTRUCTION_LENGTH];
     ZyanU8 byte_length = 0;
-    for (ZyanU8 i = hexbytes_index; i < argc; ++i)
+    ZyanU8 i = hexbytes_index;
+    for (; i < argc; ++i)
     {
         char* cur_arg = argv[i];
 
         // Strip whitespace in-place.
         const ZyanUSize arg_len = ZYAN_STRLEN(cur_arg);
         ZyanUSize write = 0;
-        for (ZyanUSize read = 0; read < arg_len; ++read)
+        ZyanUSize read = 0;
+        for (; read < arg_len; ++read)
         {
             char ch = cur_arg[read];
             if (ch == ' ' || ch == '\t') continue;
@@ -1196,7 +1204,8 @@ int main(int argc, char** argv)
                 CVT100_ERR(ZYAN_VT100SGR_RESET));
             return ZYAN_STATUS_INVALID_ARGUMENT;
         }
-        for (ZyanU8 j = 0; j < write / 2; ++j)
+        ZyanU8 j = 0;
+        for (; j < write / 2; ++j)
         {
             unsigned value;
             if (!ZYAN_SSCANF(&cur_arg[j * 2], "%02x", &value))

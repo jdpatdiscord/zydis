@@ -76,7 +76,8 @@ int ZydisFuzzTarget(ZydisStreamRead read_fn, void* stream_ctx)
         ZYDIS_MAYBE_FPUTS("Failed to initialize decoder\n", ZYAN_STDERR);
         return EXIT_FAILURE;
     }
-    for (int mode = 0; mode <= ZYDIS_DECODER_MODE_MAX_VALUE; ++mode)
+    int mode = 0;
+    for (; mode <= ZYDIS_DECODER_MODE_MAX_VALUE; ++mode)
     {
         if (!ZYAN_SUCCESS(ZydisDecoderEnableMode(&decoder, (ZydisDecoderMode)mode,
             control_block.decoder_mode[mode] ? 1 : 0)))
@@ -92,7 +93,9 @@ int ZydisFuzzTarget(ZydisStreamRead read_fn, void* stream_ctx)
         ZYDIS_MAYBE_FPUTS("Failed to initialize formatter\n", ZYAN_STDERR);
         return EXIT_FAILURE;
     }
-    for (int prop = 0; prop <= ZYDIS_FORMATTER_PROP_MAX_VALUE; ++prop)
+
+    int prop = 0;
+    for (; prop <= ZYDIS_FORMATTER_PROP_MAX_VALUE; ++prop)
     {
         switch (prop)
         {

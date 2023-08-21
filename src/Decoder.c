@@ -1606,7 +1606,8 @@ static ZyanStatus ZydisDecodeOperands(const ZydisDecoder* decoder, const ZydisDe
     ZYAN_MEMSET(operands, 0, sizeof(ZydisDecodedOperand) * operand_count);
 
     ZyanU8 imm_id = 0;
-    for (ZyanU8 i = 0; i < operand_count; ++i)
+    ZyanU8 i = 0;
+    for (; i < operand_count; ++i)
     {
         ZydisRegisterClass register_class = ZYDIS_REGCLASS_INVALID;
 

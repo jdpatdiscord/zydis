@@ -81,7 +81,8 @@ static ZyanStatus ZydisFormatterPrintAddressAbsolute(const ZydisFormatter* forma
     ZYAN_CHECK(ZydisCalcAbsoluteAddress(context->instruction, context->operand,
         context->runtime_address, &address));
 
-    for (ZyanUSize i = 0; i < ZYAN_ARRAY_LENGTH(SYMBOL_TABLE); ++i)
+    ZyanUSize i = 0;
+    for (; i < ZYAN_ARRAY_LENGTH(SYMBOL_TABLE); ++i)
     {
         if (SYMBOL_TABLE[i].address == address)
         {

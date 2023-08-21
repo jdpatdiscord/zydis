@@ -56,7 +56,8 @@ ZyanStatus ZydisFormatterIntelFormatInstruction(const ZydisFormatter* formatter,
 
     ZyanUPointer state_mnemonic;
     ZYDIS_BUFFER_REMEMBER(buffer, state_mnemonic);
-    for (ZyanU8 i = 0; i < context->instruction->operand_count_visible; ++i)
+    ZyanU8 i = 0;
+    for (; i < context->instruction->operand_count_visible; ++i)
     {
         const ZydisDecodedOperand* const operand = &context->operands[i];
 

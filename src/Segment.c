@@ -157,7 +157,8 @@ ZyanStatus ZydisGetInstructionSegments(const ZydisDecodedInstruction* instructio
     }
 
     // Immediates
-    for (ZyanU8 i = 0; i < 2; ++i)
+    ZyanU8 i = 0;
+    for (; i < 2; ++i)
     {
         if (instruction->raw.imm[i].size)
         {

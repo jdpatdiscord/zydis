@@ -374,7 +374,8 @@ static ZyanU8 ZydisGetOperandSizeFromElementSize(ZydisEncoderInstructionMatch *m
             {  1,  2,  0 },
         };
         const ZyanU8 eosz_index = ZydisGetMachineModeWidth(match->request->machine_mode) >> 5;
-        for (int i = 0; i < 3; ++i)
+        int i = 0;
+        for (; i < 3; ++i)
         {
             const ZyanI8 eosz_candidate = eosz_priority_lookup[eosz_index][i];
             if ((eosz_candidate == -1) ||
@@ -875,7 +876,8 @@ static ZyanI8 ZydisGetRm16(ZydisRegister base, ZydisRegister index)
         { ZYDIS_REGISTER_BP, ZYDIS_REGISTER_NONE },
         { ZYDIS_REGISTER_BX, ZYDIS_REGISTER_NONE },
     };
-    for (ZyanI8 i = 0; i < (ZyanI8)ZYAN_ARRAY_LENGTH(modrm16_lookup); ++i)
+    ZyanI8 i = 0;
+    for (; i < (ZyanI8)ZYAN_ARRAY_LENGTH(modrm16_lookup); ++i)
     {
         if ((modrm16_lookup[i][0] == base) &&
             (modrm16_lookup[i][1] == index))
@@ -2664,8 +2666,8 @@ static ZyanBool ZydisIsDefinitionCompatible(ZydisEncoderInstructionMatch *match,
     {
         return ZYAN_FALSE;
     }
-
-    for (ZyanU8 i = 0; i < request->operand_count; ++i)
+    ZyanU8 i = 0;
+    for (; i < request->operand_count; ++i)
     {
         const ZydisEncoderOperand *user_op = &request->operands[i];
         const ZydisOperandDefinition *def_op = &match->operands[i];
@@ -2848,7 +2850,8 @@ static ZyanU16 ZydisGetOperandMask(const ZydisEncoderRequest *request)
 {
     ZyanU16 operand_mask = request->operand_count;
     ZyanU8 bit_offset = ZYAN_BITS_TO_REPRESENT(ZYDIS_ENCODER_MAX_OPERANDS);
-    for (ZyanU8 i = 0; i < request->operand_count; ++i)
+    ZyanU8 i = 0;
+    for (; i < request->operand_count; ++i)
     {
         operand_mask |= (request->operands[i].type - ZYDIS_OPERAND_TYPE_REGISTER) << bit_offset;
         bit_offset += ZYAN_BITS_TO_REPRESENT(
@@ -2929,7 +2932,8 @@ static ZyanStatus ZydisFindMatchingDefinition(const ZydisEncoderRequest *request
     const ZyanU8 default_osz = ZydisGetOszFromHint(request->operand_size_hint);
     const ZyanU16 operand_mask = ZydisGetOperandMask(request);
 
-    for (ZyanU8 i = 0; i < definition_count; ++i, ++definition)
+    ZyanU8 i = 0;
+    for (; i < definition_count; ++i, ++definition)
     {
         if (definition->operand_mask != operand_mask)
         {
@@ -4047,7 +4051,8 @@ static ZyanStatus ZydisBuildInstruction(ZydisEncoderInstructionMatch *match,
         }
     }
 
-    for (ZyanU8 i = 0; i < match->request->operand_count; ++i)
+    ZyanU8 i = 0;
+    for (; i < match->request->operand_count; ++i)
     {
         const ZydisEncoderOperand *user_op = &match->request->operands[i];
         const ZydisOperandDefinition *def_op = &match->operands[i];
@@ -4239,7 +4244,8 @@ static ZyanStatus ZydisEncoderCheckRequestSanity(const ZydisEncoderRequest *requ
         }
     }
 
-    for (ZyanU8 i = 0; i < request->operand_count; ++i)
+    ZyanU8 i = 0;
+    for (; i < request->operand_count; ++i)
     {
         const ZydisEncoderOperand *op = &request->operands[i];
         if ((op->type == ZYDIS_OPERAND_TYPE_UNUSED) ||
@@ -4333,7 +4339,8 @@ ZYDIS_EXPORT ZyanStatus ZydisEncoderEncodeInstructionAbsolute(ZydisEncoderReques
     ZyanBool adjusted_rel = ZYAN_FALSE;
     ZyanU64 absolute_address = 0;
     ZyanU8 mode_index = ZydisGetMachineModeWidth(request->machine_mode) >> 5;
-    for (ZyanU8 i = 0; i < request->operand_count; ++i)
+    ZyanU8 i = 0;
+    for (; i < request->operand_count; ++i)
     {
         ZydisEncoderOperand *op = &request->operands[i];
         if ((op->type == ZYDIS_OPERAND_TYPE_IMMEDIATE) && rel_info)
@@ -4413,7 +4420,8 @@ ZYDIS_EXPORT ZyanStatus ZydisEncoderEncodeInstructionAbsolute(ZydisEncoderReques
                 }
                 ZYAN_ASSERT(ZYAN_ARRAY_LENGTH(asz_priority[0]) ==
                             ZYAN_ARRAY_LENGTH(osz_priority[0]));
-                for (ZyanU8 j = start_offset; j < ZYAN_ARRAY_LENGTH(asz_priority[0]); ++j)
+                ZyanU8 j = start_offset;
+                for (; j < ZYAN_ARRAY_LENGTH(asz_priority[0]); ++j)
                 {
                     ZyanI8 size_index = priority_row[j];
                     if (size_index < 0)
@@ -4641,7 +4649,8 @@ ZYDIS_EXPORT ZyanStatus ZydisEncoderDecodedInstructionToEncoderRequest(
         return ZYAN_STATUS_INVALID_ARGUMENT;
     }
     request->operand_count = operand_count;
-    for (ZyanU8 i = 0; i < operand_count; ++i)
+    ZyanU8 i = 0;
+    for (; i < operand_count; ++i)
     {
         const ZydisDecodedOperand *dec_op = &operands[i];
         ZydisEncoderOperand *enc_op = &request->operands[i];

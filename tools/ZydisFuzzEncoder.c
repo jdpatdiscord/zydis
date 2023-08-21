@@ -105,7 +105,8 @@ void ZydisCompareRequestToInstruction(const ZydisEncoderRequest *request,
         abort();
     }
 
-    for (ZyanU8 i = 0; i < insn->operand_count_visible; ++i)
+    ZyanU8 i = 0;
+    for (; i < insn->operand_count_visible; ++i)
     {
         const ZydisEncoderOperand *op1 = &request->operands[i];
         const ZydisDecodedOperand *op2 = &operands[i];
@@ -230,7 +231,8 @@ int ZydisFuzzTarget(ZydisStreamRead read_fn, void *stream_ctx)
         ZYDIS_CONVERSION_MODE_MAX_VALUE);
     ZYDIS_SANITIZE_ENUM(request.mvex.rounding, ZydisRoundingMode, ZYDIS_ROUNDING_MODE_MAX_VALUE);
     ZYDIS_SANITIZE_ENUM(request.mvex.swizzle, ZydisSwizzleMode, ZYDIS_SWIZZLE_MODE_MAX_VALUE);
-    for (ZyanU8 i = 0; i < request.operand_count; ++i)
+    ZyanU8 i = 0;
+    for (; i < request.operand_count; ++i)
     {
         ZydisEncoderOperand *op = &request.operands[i];
         op->type = (ZydisOperandType)(ZYDIS_OPERAND_TYPE_REGISTER +

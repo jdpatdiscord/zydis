@@ -56,7 +56,8 @@ int main(void)
         return 1;
     }
 
-    for (ZyanUSize i = 0; i < encoded_length; ++i)
+    ZyanUSize i = 0;
+    for (; i < encoded_length; ++i)
     {
         printf("%02X ", encoded_instruction[i]);
     }
